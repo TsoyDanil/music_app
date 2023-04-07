@@ -21,7 +21,7 @@ export const permissionCheck = (roles: ERoles[]) => {
                 req.verifiedData = verifiedData
                 next()
             } else{
-                throw new Error('Invalid data in permission denied')
+                throw new Error('Permission denied')
             }
         } catch(err: unknown){
             const error = err as Error
