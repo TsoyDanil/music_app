@@ -1,0 +1,48 @@
+.AlbumBlock {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background: rgb(44, 43, 43);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    padding: 15px;
+    width: 100%;
+    max-width: 350px;
+    margin: 15px auto;
+    cursor: pointer;
+    transition: 0.2s;
+    background: rgb(99, 98, 98);
+}
+
+.AlbumBlock:hover {
+    background: rgb(64, 64, 64);
+}
+
+.Album_cover {
+    width: 150px;
+    height: 150px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.Album_header {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.Album_date {
+    font-size: 18px;
+    margin: 0;
+    color: white;
+    font-style: italic;
+}
+
+.AlbumBlock:hover .Album_cover {
+    transform: scale(1.1);
+}

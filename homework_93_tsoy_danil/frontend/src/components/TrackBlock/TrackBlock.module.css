@@ -1,0 +1,54 @@
+.TrackBlock {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    max-width: 1300px;
+    width: 100%;
+    box-sizing: border-box;
+    background: rgb(24, 19, 19);
+}
+
+.TrackBlock:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background: black;
+}
+
+.TrackBlock h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.TrackBlock h1 span {
+    margin-right: 10px;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.TrackBlock p {
+    font-size: 16px;
+    margin: 5px 0 0;
+}
+
+.Track_data{
+    display: flex;
+    width: 80%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.TrackBlock button{
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.TrackBlock button:hover{
+    background: black;
+    color: white;
+}

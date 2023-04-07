@@ -1,0 +1,47 @@
+.TracksList{
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.TracksList_header {
+    margin: 0;
+    padding-top: 20px;
+}
+
+.Video_frame{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(2, 2, 2, 0.437);
+    z-index: 9;
+}
+
+.Video_frame_player{
+    padding: 10px;
+    background: white;
+    border-radius: 5px;
+}
+
+.Close_button{
+    margin-top: 30px;
+    width: 60px;
+    height: 60px;
+    border: none;
+    background: url('../../assets/icons8-macos-close-60.png');
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.Close_button:hover{
+    transform: scale(1.1);
+}

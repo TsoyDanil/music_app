@@ -1,0 +1,43 @@
+.Header{
+    width: 100%;
+    background: rgb(205, 204, 204);
+}
+
+.Header_button{
+    border: none;
+    background: none;
+    transition: 0.2s;
+    font-family: 'Kanit', sans-serif;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.Header_button:hover{
+    border: none;
+    color: rgb(101, 101, 101);
+}
+
+.LinksBlock{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.Header_button:focus{
+    border: none;
+}
+
+.Header_inner_container{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 1000px;
+    width: 100%;
+}

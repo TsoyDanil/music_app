@@ -1,0 +1,21 @@
+.TrackHistoryBlock{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #9a9696;
+    border-radius: 10px;
+    color: black;
+    transition: 0.2s;
+    
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.TrackHistoryBlock p {
+    margin: 5px;
+}
+
+.TrackHistoryBlock:hover{
+    box-shadow: 0 4px 12px rgb(121, 121, 121);
+}
