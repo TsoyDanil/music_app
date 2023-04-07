@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
 import IUser from "../interfaces/IUser";
+import { ERoles } from "../enum/ERoles";
 
 const UserSchema: Schema = new Schema<IUser>({
     username: {
@@ -19,7 +20,8 @@ const UserSchema: Schema = new Schema<IUser>({
     role: {
         type: String,
         required: false,
-        default: 'user'
+        default: ERoles.USER,
+        enum: Object.values(ERoles)
     }
 },{versionKey: false})
 

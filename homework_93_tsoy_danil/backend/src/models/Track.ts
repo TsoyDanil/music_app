@@ -32,6 +32,11 @@ const TrackSchema = new Schema<ITrack>({
     index:{
         type: Number,
         required: false
+    },
+    isPublished: {
+        type: Boolean,
+        required: false,
+        default: false
     }
 }, {versionKey: false})
 

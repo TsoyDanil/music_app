@@ -5,5 +5,5 @@ export default interface IUserGetDto {
     _id: Types.ObjectId
     username: IUSer['username']
     token: string
-    role: string
+    role: IUSer['role']
 }

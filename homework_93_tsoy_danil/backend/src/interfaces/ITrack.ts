@@ -7,5 +7,6 @@ export default interface ITrack{
     length: number
     index: number
     link: string
+    isPublished: boolean
     generateIndex: (index: number) => number
 }

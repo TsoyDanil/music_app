@@ -24,6 +24,11 @@ const ArtistSchema = new Schema<IArtist>({
         trim: true,
         minlength: 1,
         required: [true, 'Artists info should exist']
+    },
+    isPublished: {
+        type: Boolean,
+        required: false,
+        default: false
     }
 }, {versionKey: false})
 

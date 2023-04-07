@@ -6,4 +6,5 @@ export default interface IAlbum{
     artist: IArtist
     releaseYear: Date
     coverImage: string
+    isPublished: boolean
 }

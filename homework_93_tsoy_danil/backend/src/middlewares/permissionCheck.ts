@@ -3,8 +3,9 @@ import IModifiedRequest from "../interfaces/IModifiedRequest";
 import IResponse from "../interfaces/IResponse";
 import { EStatuses } from "../enum/EStatuses";
 import jwt from 'jsonwebtoken'
+import { ERoles } from "../enum/ERoles";
 
-export const permissionCheck = (role: string) => {
+export const permissionCheck = (roles: ERoles[]) => {
     return (modifiedRequest: Request, res: Response, next: NextFunction) => {
         const req = modifiedRequest as IModifiedRequest
         if (req.method === 'OPTIONS'){
@@ -16,11 +17,11 @@ export const permissionCheck = (role: string) => {
                 throw new Error('Token not provided')
             } 
             const verifiedData = jwt.verify(token, process.env.SECRET_KEY as string);
-            if (typeof verifiedData === 'object' && verifiedData.role === role){
+            if (verifiedData && typeof verifiedData === 'object' && roles.includes(verifiedData.role)){
                 req.verifiedData = verifiedData
                 next()
             } else{
-                throw new Error('Invalid data in permission check')
+                throw new Error('Invalid data in permission denied')
             }
         } catch(err: unknown){
             const error = err as Error

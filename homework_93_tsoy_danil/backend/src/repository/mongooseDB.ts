@@ -91,6 +91,48 @@ export class MongooseDB {
         }
     }
 
+    public deleteAlbumById = async(id: string): Promise<IResponse<IAlbum | null>> => {
+        try{
+            const album = await Album.findOneAndDelete({_id: id})
+            if (!album) throw new Error('No album found with stated id')
+            const response: IResponse<IAlbum> = {
+                status: EStatuses.SUCCESS,
+                result: album,
+                message: 'Album deleted successfully'
+            }
+            return response
+        } catch(err: unknown){
+            const error = err as Error 
+            const response: IResponse<null> = {
+                status: EStatuses.FAILURE,
+                result: null,
+                message: error.message
+            }
+            return response
+        }
+    }
+
+    public publishAlbumById = async(id: string): Promise<IResponse<IAlbum | null>> => {
+        try{
+            const album = await Album.findOneAndUpdate({_id: id}, {isPublished: true}, {returnOriginal: false})
+            if (!album) throw new Error('No album found with stated id')
+            const response: IResponse<IAlbum> = {
+                status: EStatuses.SUCCESS,
+                result: album,
+                message: 'Album published successfully'
+            }
+            return response
+        } catch(err: unknown){
+            const error = err as Error 
+            const response: IResponse<null> = {
+                status: EStatuses.FAILURE,
+                result: null,
+                message: error.message
+            }
+            return response
+        }
+    }
+
     public getArtists = async(): Promise<IResponse<IArtist[] | null>> => {
         try{
             const data = await Artist.find()
@@ -122,6 +164,48 @@ export class MongooseDB {
             }
             return response
         } catch (err: unknown){
+            const error = err as Error 
+            const response: IResponse<null> = {
+                status: EStatuses.FAILURE,
+                result: null,
+                message: error.message
+            }
+            return response
+        }
+    }
+
+    public deleteArtistById = async(id: string): Promise<IResponse<IArtist | null>> => {
+        try{    
+            const artist = await Artist.findOneAndDelete({_id: id})
+            if (!artist) throw new Error('No artist with stated id found')
+            const response: IResponse<IArtist> = {
+                status: EStatuses.SUCCESS,
+                result: artist,
+                message: 'Artist deleted successfully'
+            }
+            return response
+        } catch(err: unknown){
+            const error = err as Error 
+            const response: IResponse<null> = {
+                status: EStatuses.FAILURE,
+                result: null,
+                message: error.message
+            }
+            return response
+        }
+    }
+
+    public publishArtistById = async(id: string): Promise<IResponse<IArtist | null>> => {
+        try{    
+            const artist = await Artist.findByIdAndUpdate({_id: id}, {isPublished: true}, {returnOriginal: false})
+            if (!artist) throw new Error('No artist with stated id found')
+            const response: IResponse<IArtist> = {
+                status: EStatuses.SUCCESS,
+                result: artist,
+                message: 'Artist published successfully'
+            }
+            return response
+        } catch(err: unknown){
             const error = err as Error 
             const response: IResponse<null> = {
                 status: EStatuses.FAILURE,
@@ -173,6 +257,48 @@ export class MongooseDB {
                 status: EStatuses.SUCCESS,
                 result: data,
                 message: 'Album added'
+            }
+            return response
+        } catch(err: unknown){
+            const error = err as Error 
+            const response: IResponse<null> = {
+                status: EStatuses.FAILURE,
+                result: null,
+                message: error.message
+            }
+            return response
+        }
+    }
+
+    public deleteTrackById = async(id: string): Promise<IResponse<ITrack | null>> => {
+        try{    
+            const track = await Track.findOneAndDelete({_id: id})
+            if (!track) throw new Error('No artist with stated id found')
+            const response: IResponse<ITrack> = {
+                status: EStatuses.SUCCESS,
+                result: track,
+                message: 'Artist deleted successfully'
+            }
+            return response
+        } catch(err: unknown){
+            const error = err as Error 
+            const response: IResponse<null> = {
+                status: EStatuses.FAILURE,
+                result: null,
+                message: error.message
+            }
+            return response
+        }
+    }
+
+    public publishTrackById = async(id: string): Promise<IResponse<ITrack | null>> => {
+        try{    
+            const track = await Track.findByIdAndUpdate({_id: id}, {isPublished: true}, {returnOriginal: false})
+            if (!track) throw new Error('No artist with stated id found')
+            const response: IResponse<ITrack> = {
+                status: EStatuses.SUCCESS,
+                result: track,
+                message: 'Artist published successfully'
             }
             return response
         } catch(err: unknown){

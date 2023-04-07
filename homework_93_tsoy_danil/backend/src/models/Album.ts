@@ -24,6 +24,11 @@ const AlbumSchema = new Schema<IAlbum>({
     coverImage:{
         type: String,
         required: [true, 'Cover image should exist']
+    },
+    isPublished: {
+        type: Boolean,
+        required: false,
+        default: false
     }
 }, {versionKey: false})
 
