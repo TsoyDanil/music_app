@@ -5,6 +5,7 @@ import { Track } from './models/Track';
 import { TrackHistory } from './models/TrackHistory';
 import { User } from './models/User';
 import dotenv from 'dotenv'
+import { ERoles } from './enum/ERoles';
 
 dotenv.config()
 
@@ -55,13 +56,15 @@ export default db.once('open', async () => {
             title: 'The final stand!',
             album: albumOne._id,
             length: 111,
-            link: 'https://www.youtube.com/embed/i9BupglHdtM'
+            link: 'https://www.youtube.com/embed/i9BupglHdtM',
+            isPublished: true
         },
         {
             title: 'Blessed & Possessed',
             album: albumTwo._id,
             length: 222,
-            link: 'https://www.youtube.com/embed/GxWiRU1wrPo'
+            link: 'https://www.youtube.com/embed/GxWiRU1wrPo',
+            isPublished: true
         }
     )
 
@@ -113,12 +116,12 @@ export default db.once('open', async () => {
         {
             username: 'user1',
             password: 'pass',
-            role: 'user'
+            role: ERoles.USER
         },
         {
             username: 'user2',
             password: 'pass',
-            role: 'admin'
+            role: ERoles.ADMIN
         }
     )
     

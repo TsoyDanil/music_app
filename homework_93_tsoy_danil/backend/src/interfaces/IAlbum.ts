@@ -3,7 +3,7 @@ import IArtist from "./IArtist";
 
 export default interface IAlbum{
     _id: Types.ObjectId
-    title: string;
+    title: string
     artist: IArtist
     releaseYear: Date
     coverImage: string
