@@ -114,11 +114,14 @@ export class MongooseDB {
 
     public publishAlbumById = async(id: string): Promise<IResponse<IAlbum | null>> => {
         try{
-            const album = await Album.findOneAndUpdate({_id: id}, {isPublished: true}, {returnOriginal: false})
-            if (!album) throw new Error('No album found with stated id')
+            const albumToPublish = await Album.findById(id)
+            if (!albumToPublish) throw new Error('No album found with stated id')
+            if (albumToPublish?.isPublished) throw new Error('Album already published')
+            albumToPublish.isPublished = true
+            await albumToPublish.save()
             const response: IResponse<IAlbum> = {
                 status: EStatuses.SUCCESS,
-                result: album,
+                result: albumToPublish,
                 message: 'Album published successfully'
             }
             return response
@@ -196,12 +199,15 @@ export class MongooseDB {
     }
 
     public publishArtistById = async(id: string): Promise<IResponse<IArtist | null>> => {
-        try{    
-            const artist = await Artist.findByIdAndUpdate({_id: id}, {isPublished: true}, {returnOriginal: false})
-            if (!artist) throw new Error('No artist with stated id found')
+        try{  
+            const artistToPublish = await Artist.findById(id)
+            if (!artistToPublish) throw new Error('No artist with stated id found')
+            if (artistToPublish?.isPublished === true ) throw new Error('Artist already published')
+            artistToPublish.isPublished = true
+            await artistToPublish.save()
             const response: IResponse<IArtist> = {
                 status: EStatuses.SUCCESS,
-                result: artist,
+                result: artistToPublish,
                 message: 'Artist published successfully'
             }
             return response
@@ -293,11 +299,14 @@ export class MongooseDB {
 
     public publishTrackById = async(id: string): Promise<IResponse<ITrack | null>> => {
         try{    
-            const track = await Track.findByIdAndUpdate({_id: id}, {isPublished: true}, {returnOriginal: false})
-            if (!track) throw new Error('No artist with stated id found')
+            const trackToPublish = await Track.findById(id)
+            if (!trackToPublish) throw new Error('No track with stated id found')
+            if (trackToPublish?.isPublished) throw new Error('Track already published')
+            trackToPublish.isPublished = true
+            await trackToPublish.save()
             const response: IResponse<ITrack> = {
                 status: EStatuses.SUCCESS,
-                result: track,
+                result: trackToPublish,
                 message: 'Artist published successfully'
             }
             return response
