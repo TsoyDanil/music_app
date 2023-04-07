@@ -30,7 +30,7 @@ export class AlbumsController {
         this.router.get('/:id', this.getAlbums)
         this.router.post('/', [auth, upload.single('coverImage')], this.addAlbum)
         this.router.delete('/:id', permissionCheck([ERoles.ADMIN]), this.deleteAlbumById)
-        this.router.post('/:id', permissionCheck([ERoles.ADMIN]), this.publishAlbumById)
+        this.router.post('/:id/publish', permissionCheck([ERoles.ADMIN]), this.publishAlbumById)
     }
 
     public getRouter () {

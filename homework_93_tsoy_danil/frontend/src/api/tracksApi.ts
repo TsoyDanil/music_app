@@ -55,7 +55,7 @@ class TracksApi {
 
     public publishTrackById = async(id: string): Promise<IResponse<ITrack | null>> => {
         try{
-            const response = await instance.post(`/tracks/${id}`)
+            const response = await instance.post(`/tracks/${id}/publish`)
             return response.data
         } catch(err: unknown){
             console.log(err);

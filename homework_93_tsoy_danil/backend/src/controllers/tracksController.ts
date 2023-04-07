@@ -16,7 +16,7 @@ export class TracksController {
         this.router.get('/', this.getTracks)
         this.router.post('/', auth, this.addTrack)
         this.router.delete('/:id', permissionCheck([ERoles.ADMIN]), this.deleteTrackById)
-        this.router.post('/:id', permissionCheck([ERoles.ADMIN]), this.publishTrackById)
+        this.router.post('/:id/publish', permissionCheck([ERoles.ADMIN]), this.publishTrackById)
     }
 
     public getRouter () {

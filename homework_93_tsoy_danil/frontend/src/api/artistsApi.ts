@@ -56,7 +56,7 @@ class ArtistsApi {
 
     public publishArtistById = async(id: string): Promise<IResponse<IArtist | null>> => {
         try{
-            const response = await instance.post(`/artists/${id}`)
+            const response = await instance.post(`/artists/${id}/publish`)
             return response.data
         } catch(err: unknown){
             console.log(err)

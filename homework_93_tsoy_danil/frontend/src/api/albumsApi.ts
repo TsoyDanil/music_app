@@ -72,7 +72,7 @@ class AlbumsApi {
 
     public publishAlbumById = async(id: string): Promise<IResponse<IAlbum | null>> => {
         try{
-            const response = await instance.post(`/albums/${id}`)
+            const response = await instance.post(`/albums/${id}/publish`)
             return response.data
         } catch(err: unknown){
             console.log(err);

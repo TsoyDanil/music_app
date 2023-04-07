@@ -29,7 +29,7 @@ export class ArtistsController {
         this.router.get('/', this.getArtists)
         this.router.post('/', [auth, upload.single('photo')], this.addArtist)
         this.router.delete('/:id', permissionCheck([ERoles.ADMIN]), this.deleteArtistById)
-        this.router.post('/:id', permissionCheck([ERoles.ADMIN]), this.publishArtistById)
+        this.router.post('/:id/publish', permissionCheck([ERoles.ADMIN]), this.publishArtistById)
     }
 
     public getRouter () {
