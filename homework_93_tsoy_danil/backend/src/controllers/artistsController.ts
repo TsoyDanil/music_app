@@ -7,6 +7,7 @@ import { artistsService, ArtistsService } from "../services/artistsService";
 import { EStatuses } from "../enum/EStatuses";
 import { auth } from "../middlewares/auth";
 import { permissionCheck } from "../middlewares/permissionCheck";
+import { ERoles } from "../enum/ERoles";
 
 const storage = multer.diskStorage({
     destination(req, file, callback){
@@ -27,6 +28,8 @@ export class ArtistsController {
         this.service = artistsService
         this.router.get('/', this.getArtists)
         this.router.post('/', [auth, upload.single('photo')], this.addArtist)
+        this.router.delete('/:id', permissionCheck([ERoles.ADMIN]), this.deleteArtistById)
+        this.router.post('/:id', permissionCheck([ERoles.ADMIN]), this.publishArtistById)
     }
 
     public getRouter () {
@@ -46,6 +49,24 @@ export class ArtistsController {
         const artistDto = req.body
         artistDto.photo = req.file ? req.file.filename : ''
         const response = await this.service.addArtist(artistDto)
+        if (response.status === EStatuses.FAILURE){
+            res.status(418).send(response)
+        } else{
+            res.send(response)
+        }
+    }
+
+    private deleteArtistById = async(req: Request, res: Response): Promise<void> => {
+        const response = await this.service.deleteArtistById(req.params.id)
+        if (response.status === EStatuses.FAILURE){
+            res.status(418).send(response)
+        } else{
+            res.send(response)
+        }
+    }
+
+    private publishArtistById = async(req: Request, res: Response): Promise<void> => {
+        const response = await this.service.publishArtistById(req.params.id)
         if (response.status === EStatuses.FAILURE){
             res.status(418).send(response)
         } else{

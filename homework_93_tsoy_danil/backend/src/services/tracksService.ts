@@ -18,6 +18,14 @@ export class TracksService {
     public addTrack = async(trackDto: ITrackDto): Promise<IResponse<ITrack | null>> => {
         return await this.repository.addTrack(trackDto)
     }
+
+    public deleteTrackById = async(id: string): Promise<IResponse<ITrack | null>> => {
+        return await this.repository.deleteTrackById(id)
+    }
+
+    public publishTrackById = async(id: string): Promise<IResponse<ITrack | null>> => {
+        return await this.repository.publishTrackById(id)
+    }
 }
 
 export const tracksService = new TracksService()

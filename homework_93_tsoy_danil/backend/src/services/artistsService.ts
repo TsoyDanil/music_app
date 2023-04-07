@@ -17,6 +17,14 @@ export class ArtistsService {
     public addArtist = async(artistDto: IArtistDto): Promise<IResponse<IArtist | null>> => {
         return await this.repository.addArtist(artistDto)
     }
+
+    public deleteArtistById = async(id: string): Promise<IResponse<IArtist | null>> => {
+        return await this.repository.deleteArtistById(id)
+    }
+
+    public publishArtistById = async(id: string): Promise<IResponse<IArtist | null>> => {
+        return await this.repository.publishArtistById(id)
+    }
 }
 
 export const artistsService = new ArtistsService()

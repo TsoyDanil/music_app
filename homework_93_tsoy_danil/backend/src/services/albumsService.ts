@@ -18,6 +18,14 @@ export class AlbumsService {
     public addAlbum = async(albumDto: IAlbumDto): Promise<IResponse<IAlbum | null>> => {
         return await this.repository.addAlbum(albumDto)
     }
+
+    public deleteAlbumById = async(id: string): Promise<IResponse<IAlbum | null>> => {
+        return await this.repository.deleteAlbumById(id)
+    }
+
+    public publishAlbumById = async(id: string): Promise<IResponse<IAlbum | null>> => {
+        return await this.repository.publishAlbumById(id)
+    }
 }
 
 export const albumsService = new AlbumsService()
