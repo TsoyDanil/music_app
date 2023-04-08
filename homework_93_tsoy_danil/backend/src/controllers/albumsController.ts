@@ -27,6 +27,7 @@ export class AlbumsController {
         this.router = express.Router()
         this.service = albumsService
         this.router.get('/', this.getAlbums)
+        this.router.get('/unpublished', auth, this.getUnpublishedAlbums)
         this.router.get('/:id', this.getAlbums)
         this.router.post('/', [auth, upload.single('coverImage')], this.addAlbum)
         this.router.delete('/:id', permissionCheck([ERoles.ADMIN]), this.deleteAlbumById)
@@ -68,6 +69,15 @@ export class AlbumsController {
 
     private publishAlbumById = async(req: Request, res: Response): Promise<void> => {
         const response = await this.service.publishAlbumById(req.params.id)
+        if (response.status === EStatuses.FAILURE){
+            res.status(418).send(response)
+        } else{
+            res.send(response)
+        }
+    }
+
+    private getUnpublishedAlbums = async(req: Request, res: Response): Promise<void> => {
+        const response = await this.service.getUnpublishedAlbums()
         if (response.status === EStatuses.FAILURE){
             res.status(418).send(response)
         } else{

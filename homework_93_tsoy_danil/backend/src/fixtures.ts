@@ -28,11 +28,13 @@ export default db.once('open', async () => {
         {
             name: 'Sabaton',
             photo: 'sabaton.jpg',
-            information: 'Sabaton rock group!'
+            information: 'Sabaton rock group!',
+            isPublished: true
         }, {
             name: 'Powerwolf',
             photo: 'powerwolf.jpg',
-            information: 'Powerwolf rock group!'
+            information: 'Powerwolf rock group!',
+            isPublished: true
         }
     )
 
@@ -41,13 +43,15 @@ export default db.once('open', async () => {
             title: 'The last stand',
             artist: artistOne._id,
             releaseYear: '01.01.2001',
-            coverImage: 'Sabaton_The_Last_Stand_cover.jpg'
+            coverImage: 'Sabaton_The_Last_Stand_cover.jpg',
+            isPublished: true
         },
         {
             title: 'Call of the wild',
             artist: artistTwo._id,
             releaseYear: '02.02.2002',
-            coverImage: 'call_of_the_wild_album.jpg'
+            coverImage: 'call_of_the_wild_album.jpg',
+            isPublished: true
         }
     )
     

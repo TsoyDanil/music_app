@@ -15,6 +15,10 @@ export class AlbumsService {
         return await this.repository.getAlbums(req)
     }
 
+    public getUnpublishedAlbums = async(): Promise<IResponse<IAlbum[] | null>> => {
+        return await this.repository.getUnpublishedAlbums()
+    }
+
     public addAlbum = async(albumDto: IAlbumDto): Promise<IResponse<IAlbum | null>> => {
         return await this.repository.addAlbum(albumDto)
     }

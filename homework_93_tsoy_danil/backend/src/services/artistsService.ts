@@ -14,6 +14,10 @@ export class ArtistsService {
         return await this.repository.getArtists()
     }
 
+    public getUnpublishedArtists = async(): Promise<IResponse<IArtist[] | null>> => {
+        return await this.repository.getUnpublishedArtists()
+    }
+
     public addArtist = async(artistDto: IArtistDto): Promise<IResponse<IArtist | null>> => {
         return await this.repository.addArtist(artistDto)
     }

@@ -15,6 +15,10 @@ export class TracksService {
         return await this.repository.getTracks(req)
     }
 
+    public getUnpublishedTracks = async(): Promise<IResponse<ITrack[] | null>> => {
+        return await this.repository.getUnpublishedTracks()
+    }
+
     public addTrack = async(trackDto: ITrackDto): Promise<IResponse<ITrack | null>> => {
         return await this.repository.addTrack(trackDto)
     }

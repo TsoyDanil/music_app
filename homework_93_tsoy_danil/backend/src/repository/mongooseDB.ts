@@ -44,17 +44,37 @@ export class MongooseDB {
         try {
             let data
             if (req.query.artist){
-                data = await Album.find({artist: req.query.artist}).populate('artist').sort({releaseYear : 'ascending'})
+                data = await Album.find({artist: req.query.artist, isPublished: true}).populate('artist').sort({releaseYear : 'ascending'})
             } else if (req.params.id){
-                data = await Album.findById(req.params.id).populate('artist')
+                data = await Album.findById(req.params.id, {isPublished: true}).populate('artist')
             } else{
-                data = await Album.find().populate('artist').sort({releaseYear : 'ascending'})
+                data = await Album.find({isPublished: true}).populate('artist').sort({releaseYear : 'ascending'})
             }
             if (data === null || data === undefined) throw new Error('No album found')
             const response: IResponse<IAlbum[] | IAlbum | null> = {
                 status: EStatuses.SUCCESS,
                 result: data,
                 message: 'Albums found'
+            }
+            return response
+        } catch(err: unknown){
+            const error = err as Error 
+            const response: IResponse<null> = {
+                status: EStatuses.FAILURE,
+                result: null,
+                message: error.message
+            }
+            return response
+        }
+    }
+
+    public getUnpublishedAlbums = async (): Promise<IResponse<IAlbum[] | null>> => {
+        try{
+            const data = await Album.find({isPublished: false})
+            const response: IResponse<IAlbum[]> = {
+                status: EStatuses.SUCCESS,
+                result: data,
+                message: 'Unpublished albums found'
             }
             return response
         } catch(err: unknown){
@@ -138,7 +158,7 @@ export class MongooseDB {
 
     public getArtists = async(): Promise<IResponse<IArtist[] | null>> => {
         try{
-            const data = await Artist.find()
+            const data = await Artist.find({isPublished: true})
             const response: IResponse<IArtist[]> = {
                 status: EStatuses.SUCCESS,
                 result: data,
@@ -146,6 +166,26 @@ export class MongooseDB {
             }
             return response
         } catch (err: unknown){
+            const error = err as Error 
+            const response: IResponse<null> = {
+                status: EStatuses.FAILURE,
+                result: null,
+                message: error.message
+            }
+            return response
+        }
+    }
+
+    public getUnpublishedArtists = async (): Promise<IResponse<IArtist[] | null>> => {
+        try{
+            const data = await Artist.find({isPublished: false})
+            const response: IResponse<IArtist[]> = {
+                status: EStatuses.SUCCESS,
+                result: data,
+                message: 'Unpublished artists found'
+            }
+            return response
+        } catch(err: unknown){
             const error = err as Error 
             const response: IResponse<null> = {
                 status: EStatuses.FAILURE,
@@ -226,11 +266,11 @@ export class MongooseDB {
         try{
             let data
             if (req.query.album){
-                data = await Track.find({album: req.query.album}).populate('album').sort({index : 'ascending'})
+                data = await Track.find({album: req.query.album, isPublished: true}).populate('album').sort({index : 'ascending'})
             } else if (req.query.artist){
-                data = await Track.find({album: await Album.find({artist: req.query.artist})}).populate('album').sort({index : 'ascending'})
+                data = await Track.find({album: await Album.find({artist: req.query.artist, isPublished: true})}).populate('album').sort({index : 'ascending'})
             } else{
-                data = await Track.find().populate('album').sort({index : 'ascending'})
+                data = await Track.find({isPublished: true}).populate('album').sort({index : 'ascending'})
             }
             data.forEach((track: ITrack, i: number) => {
                 track.generateIndex(i)
@@ -239,6 +279,26 @@ export class MongooseDB {
                 status: EStatuses.SUCCESS,
                 result: data,
                 message: 'Tracks found'
+            }
+            return response
+        } catch(err: unknown){
+            const error = err as Error 
+            const response: IResponse<null> = {
+                status: EStatuses.FAILURE,
+                result: null,
+                message: error.message
+            }
+            return response
+        }
+    }
+
+    public getUnpublishedTracks = async (): Promise<IResponse<ITrack[] | null>> => {
+        try{
+            const data = await Track.find({isPublished: false})
+            const response: IResponse<ITrack[]> = {
+                status: EStatuses.SUCCESS,
+                result: data,
+                message: 'Unpublished tracks found'
             }
             return response
         } catch(err: unknown){

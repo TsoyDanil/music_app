@@ -14,6 +14,7 @@ export class TracksController {
         this.router = express.Router()
         this.service = tracksService
         this.router.get('/', this.getTracks)
+        this.router.get('/unpublished', auth ,this.getUnpublishedTracks)
         this.router.post('/', auth, this.addTrack)
         this.router.delete('/:id', permissionCheck([ERoles.ADMIN]), this.deleteTrackById)
         this.router.post('/:id/publish', permissionCheck([ERoles.ADMIN]), this.publishTrackById)
@@ -25,6 +26,15 @@ export class TracksController {
 
     private getTracks = async (req: Request, res: Response): Promise<void> => {
         const response = await this.service.getTracks(req)
+        if (response.status === EStatuses.FAILURE){
+            res.status(418).send(response)
+        } else{
+            res.send(response)
+        }
+    } 
+
+    private getUnpublishedTracks = async (req: Request, res: Response): Promise<void> => {
+        const response = await this.service.getUnpublishedTracks()
         if (response.status === EStatuses.FAILURE){
             res.status(418).send(response)
         } else{

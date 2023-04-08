@@ -27,6 +27,7 @@ export class ArtistsController {
         this.router = express.Router()
         this.service = artistsService
         this.router.get('/', this.getArtists)
+        this.router.get('/unpublished', auth, this.getUnpublishedArtists)
         this.router.post('/', [auth, upload.single('photo')], this.addArtist)
         this.router.delete('/:id', permissionCheck([ERoles.ADMIN]), this.deleteArtistById)
         this.router.post('/:id/publish', permissionCheck([ERoles.ADMIN]), this.publishArtistById)
@@ -38,6 +39,15 @@ export class ArtistsController {
 
     private getArtists = async (req: Request, res: Response): Promise<void> => {
         const response = await this.service.getArtists()
+        if (response.status === EStatuses.FAILURE){
+            res.status(418).send(response)
+        } else{
+            res.send(response)
+        }
+    }
+
+    private getUnpublishedArtists = async (req: Request, res: Response): Promise<void> => {
+        const response = await this.service.getUnpublishedArtists()
         if (response.status === EStatuses.FAILURE){
             res.status(418).send(response)
         } else{
