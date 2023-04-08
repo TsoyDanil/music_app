@@ -8,8 +8,8 @@ import TracksList from "./containers/TracksList/TracksList"
 import { AppDispatch, useAppDispatch } from "./store/store"
 import { checkToken } from "./store/users/users.slice"
 import PrivateRoute from "./utils/PrivateRoute"
-import ArtistForm from "./containers/ArtistForm.ts/ArtistForm"
 import AlbumForm from "./containers/AlbumForm/AlbumForm"
+import ArtistForm from "./containers/ArtistForm/ArtistForm"
 
 const App: React.FunctionComponent = (): React.ReactElement => {
   

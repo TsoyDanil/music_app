@@ -15,6 +15,7 @@ import IAlbumDto from '../../interfaces/IAlbumDto';
 import { addAlbum } from '../../store/albums/albums.slice';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import Preloader from '../../components/UI/Preloader/Preloader';
 
 const modalStyles = {
     position: 'absolute' as 'absolute',
@@ -36,11 +37,13 @@ const AlbumForm: React.FunctionComponent = (): React.ReactElement => {
 
     const dispatch: AppDispatch = useAppDispatch()
 
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState<boolean>(false);
 
     const [buttonDisabled, setButtonDisabled] = useState<boolean>(true) 
 
     const {artistsList} = useSelector((state: AppState) => state.artists, shallowEqual)
+
+    const {albumsLoading} = useSelector((state: AppState) => state.albums, shallowEqual)
 
     const navigate = useNavigate()
 
@@ -61,7 +64,7 @@ const AlbumForm: React.FunctionComponent = (): React.ReactElement => {
         releaseYear: dateValue !== null ? dateValue.toDate(): new Date()
     })
 
-    const handleClose = () => {
+    const handleClose = (): void => {
         setOpen(false);
     };
 
@@ -97,7 +100,7 @@ const AlbumForm: React.FunctionComponent = (): React.ReactElement => {
         }
     }
 
-    const submitHandler = (e: FormEvent) => {
+    const submitHandler = (e: FormEvent): void => {
         e.preventDefault()
         const formData = new FormData()
         Object.keys(albumDto).forEach((key: string) => {
@@ -133,6 +136,9 @@ const AlbumForm: React.FunctionComponent = (): React.ReactElement => {
 
     return(
         <div>
+            {
+                albumsLoading ? <Preloader/> : null
+            }
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -150,7 +156,7 @@ const AlbumForm: React.FunctionComponent = (): React.ReactElement => {
             <h1>Add new album</h1>
             <form 
                 onSubmit={submitHandler}
-                style={{margin: '10px', padding: '10px', background: '#e0e0e0', borderRadius: '5px'}}
+                style={{margin: '10px', padding: '20px', background: '#e0e0e0', borderRadius: '5px'}}
             >
                 <p style={{color: 'black'}}>Choose artist:</p>
                 <TextField 
@@ -161,6 +167,7 @@ const AlbumForm: React.FunctionComponent = (): React.ReactElement => {
                     value={albumDto.title}
                     name='title'
                     onChange={inputHandler}
+                    autoComplete='off'
                 />
                 <FormControl sx={{ minWidth: 120 }} color='primary' fullWidth style={{marginBottom: '20px'}}>
                 <InputLabel id="demo-simple-select-label">Artist</InputLabel>
@@ -186,7 +193,7 @@ const AlbumForm: React.FunctionComponent = (): React.ReactElement => {
                     onChange={(newValue) => setDateValue(newValue)}
                 />
                 </LocalizationProvider>
-                <label style={{display: 'flex', flexDirection: 'column'}}>
+                <label style={{maxWidth: '30%', display: 'flex', flexDirection: 'column'}}>
                     <input
                         style={{opacity: "0"}}
                         name={'coverImage'}

@@ -38,7 +38,7 @@ class ArtistsApi {
         }
     }
 
-    public addArtist = async(artistDto: IArtistDto): Promise<IResponse<IArtist | null>> => {
+    public addArtist = async(artistDto: FormData): Promise<IResponse<IArtist | null>> => {
         try{
             const response = await instance.post('/artists', artistDto)
             return response.data
