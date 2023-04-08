@@ -12,6 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import { useRef, useState } from "react"
 import { shallowEqual, useSelector } from "react-redux/es/exports"
+import { ERoles } from "../../enum/ERoles"
 
 const Header: React.FunctionComponent = (): React.ReactElement => {
 
@@ -114,6 +115,9 @@ const Header: React.FunctionComponent = (): React.ReactElement => {
                                         <MenuItem onClick={()=>{navigateToPage('/add-album')}}>Add album</MenuItem>
                                         <MenuItem onClick={()=>{navigateToPage('/add-track')}}>Add track</MenuItem>
                                         <MenuItem onClick={()=>{navigateToPage('/track-history')}}>Track history</MenuItem>
+                                        {
+                                            user?.role === ERoles.ADMIN ? <MenuItem onClick={()=>{navigateToPage('/admin-area')}}>Admin area</MenuItem> : null
+                                        }
                                     </MenuList>
                                     </ClickAwayListener>
                                 </Paper>

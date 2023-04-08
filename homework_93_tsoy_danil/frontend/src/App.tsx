@@ -8,6 +8,8 @@ import TracksList from "./containers/TracksList/TracksList"
 import { AppDispatch, useAppDispatch } from "./store/store"
 import { checkToken } from "./store/users/users.slice"
 import PrivateRoute from "./utils/PrivateRoute"
+import ArtistForm from "./containers/ArtistForm.ts/ArtistForm"
+import AlbumForm from "./containers/AlbumForm/AlbumForm"
 
 const App: React.FunctionComponent = (): React.ReactElement => {
   
@@ -27,8 +29,8 @@ const App: React.FunctionComponent = (): React.ReactElement => {
             <Route path="*" element={<h1>Page Not Found</h1>}/>
             <Route element={<PrivateRoute />}>
               <Route path="/track-history" element={<TrackHistory/>}/>
-              <Route path="/add-artist" element={<h1>Add artist</h1>}/>
-              <Route path="/add-album" element={<h1>Add album</h1>}/>
+              <Route path="/add-artist" element={<ArtistForm/>}/>
+              <Route path="/add-album" element={<AlbumForm/>}/>
               <Route path="/add-track" element={<h1>Add track</h1>}/>
           </Route>
         </Route>

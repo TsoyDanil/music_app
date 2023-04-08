@@ -3,6 +3,7 @@ import { albumsApi } from "../../api/albumsApi"
 import IAlbum from "../../interfaces/IAlbum"
 import { createAppAsyncThunk } from "../createAppAsyncThunk"
 import IAlbumsState from "./IAlbumsState"
+import IAlbumDto from "../../interfaces/IAlbumDto"
 
 
 const namespace: string = 'albums'
@@ -14,11 +15,26 @@ export const getAlbumsByArtistId = createAppAsyncThunk(
     }
 )
 
+export const getUnpublishedAlbums = createAppAsyncThunk(
+    `${namespace}/getUnpublishedAlbums`,
+    async () => {
+        return await albumsApi.getUnpublishedAlbums()
+    }
+)
+
+export const addAlbum = createAppAsyncThunk(
+    `${namespace}/addAlbum`,
+    async (albumDto: FormData) => {
+        return await albumsApi.addAlbum(albumDto)
+    }
+)
+
 export const albumsSlice = createSlice({
     name: namespace,
     initialState: {
         targetedAlbum: null,
         albumsList: [],
+        unpublishedAlbums: [],
         albumsLoading: false,
         albumsMessage: ''
     } as IAlbumsState,
@@ -47,6 +63,30 @@ export const albumsSlice = createSlice({
             state.albumsLoading = false
             if (action.payload.result) state.albumsList = action.payload.result
         })
+
+        .addCase(getUnpublishedAlbums.pending, (state) => {
+            state.albumsLoading = true
+        })
+        .addCase(getUnpublishedAlbums.rejected, (state) => {
+            state.albumsLoading = true
+        })
+        .addCase(getUnpublishedAlbums.fulfilled, (state, action) => {
+            state.albumsLoading = true
+            if (action.payload.result) state.unpublishedAlbums = action.payload.result
+        })
+
+        .addCase(addAlbum.pending, (state) => {
+            state.albumsLoading = true
+        })
+        .addCase(addAlbum.rejected, (state) => {
+            state.albumsLoading = false
+        })
+        .addCase(addAlbum.fulfilled, (state, action) => {
+            state.albumsLoading = false
+            if (action.payload.result) state.unpublishedAlbums = state.unpublishedAlbums.concat(action.payload.result)
+        })
+
+        
     }
 })
 
