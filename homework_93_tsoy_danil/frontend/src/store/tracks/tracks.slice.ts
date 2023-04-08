@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 import { tracksApi } from "../../api/tracksApi"
 import { createAppAsyncThunk } from "../createAppAsyncThunk"
 import ITracksState from "./ITracksState"
+import ITrackDto from "../../interfaces/ITrackDto"
 
 
 const namespace: string = 'tracks'
@@ -13,10 +14,18 @@ export const getTracksByAlbumId = createAppAsyncThunk(
     }
 )
 
+export const addTrack = createAppAsyncThunk(
+    `${namespace}/addTrack`,
+    async (trackDto: ITrackDto) => {
+        return await tracksApi.addTrack(trackDto)
+    }
+)
+
 export const tracksSlice = createSlice({
     name: namespace,
     initialState: {
         tracksList: [],
+        unpublishedTracks: [],
         tracksLoading: false,
         tracksMessage: ''
     } as ITracksState,
@@ -32,6 +41,17 @@ export const tracksSlice = createSlice({
         .addCase(getTracksByAlbumId.fulfilled, (state, action) => {
             state.tracksLoading = false
             if (action.payload.result) state.tracksList = action.payload.result
+        })
+
+        .addCase(addTrack.pending, (state) => {
+            state.tracksLoading = true
+        })
+        .addCase(addTrack.rejected, (state) => {
+            state.tracksLoading = false
+        })
+        .addCase(addTrack.fulfilled, (state, action) => {
+            state.tracksLoading = false
+            if (action.payload.result) state.unpublishedTracks = state.unpublishedTracks.concat(action.payload.result)
         })
     }
 })

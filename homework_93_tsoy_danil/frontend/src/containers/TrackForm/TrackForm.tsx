@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import IAlbum from '../../interfaces/IAlbum';
 import MenuItem from '@mui/material/MenuItem';
 import { getAlbums } from '../../store/albums/albums.slice';
+import { addTrack } from '../../store/tracks/tracks.slice';
 
 const modalStyles = {
     position: 'absolute' as 'absolute',
@@ -67,6 +68,7 @@ const TrackForm: React.FunctionComponent = (): React.ReactElement => {
 
     const submitHandler = (e: FormEvent): void => {
         e.preventDefault()
+        dispatch(addTrack(trackDto))
     }
 
     const handleAlbumChange = (event: SelectChangeEvent) => {

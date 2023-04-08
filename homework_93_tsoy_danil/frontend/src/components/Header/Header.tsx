@@ -116,7 +116,7 @@ const Header: React.FunctionComponent = (): React.ReactElement => {
                                         <MenuItem onClick={()=>{navigateToPage('/add-track')}}>Add track</MenuItem>
                                         <MenuItem onClick={()=>{navigateToPage('/track-history')}}>Track history</MenuItem>
                                         {
-                                            user?.role === ERoles.ADMIN ? <MenuItem onClick={()=>{navigateToPage('/admin-area')}}>Admin area</MenuItem> : null
+                                            user?.role && [ERoles.ADMIN].includes(user?.role) ? <MenuItem onClick={()=>{navigateToPage('/admin-area')}}>Admin area</MenuItem> : null
                                         }
                                     </MenuList>
                                     </ClickAwayListener>

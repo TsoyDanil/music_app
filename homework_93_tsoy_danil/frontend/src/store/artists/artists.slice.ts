@@ -47,7 +47,7 @@ export const artistsSlice = createSlice({
         .addCase(getArtists.pending, (state) => {
             state.artistsLoading = true
         })
-        .addCase(getArtists.rejected, (state, action) => {
+        .addCase(getArtists.rejected, (state) => {
             state.artistsLoading = false
         })
         .addCase(getArtists.fulfilled, (state, action) => {
