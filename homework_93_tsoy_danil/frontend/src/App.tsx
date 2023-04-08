@@ -10,6 +10,7 @@ import { checkToken } from "./store/users/users.slice"
 import PrivateRoute from "./utils/PrivateRoute"
 import AlbumForm from "./containers/AlbumForm/AlbumForm"
 import ArtistForm from "./containers/ArtistForm/ArtistForm"
+import TrackForm from "./containers/TrackForm/TrackForm"
 
 const App: React.FunctionComponent = (): React.ReactElement => {
   
@@ -31,7 +32,7 @@ const App: React.FunctionComponent = (): React.ReactElement => {
               <Route path="/track-history" element={<TrackHistory/>}/>
               <Route path="/add-artist" element={<ArtistForm/>}/>
               <Route path="/add-album" element={<AlbumForm/>}/>
-              <Route path="/add-track" element={<h1>Add track</h1>}/>
+              <Route path="/add-track" element={<TrackForm/>}/>
           </Route>
         </Route>
       </Routes>

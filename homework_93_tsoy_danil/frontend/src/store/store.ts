@@ -5,6 +5,20 @@ import { artistsSlice } from "./artists/artists.slice"
 import { tracksSlice } from "./tracks/tracks.slice"
 import { usersSlice } from "./users/users.slice"
 
+const localStorageMiddleware = ({ getState }: any) => {
+    return (next: any) => (action: any) => {
+        const result = next(action);
+        localStorage.setItem('applicationState', JSON.stringify(getState()));
+        return result;
+    };
+};
+
+const reHydrateStore = () => {
+    if (localStorage.getItem('applicationState') !== null) {
+        return JSON.parse(localStorage.getItem('applicationState') || ''); 
+    }
+};
+
 const makeStore = () => {
     return configureStore({
         reducer:{
@@ -12,7 +26,9 @@ const makeStore = () => {
             albums: albumsSlice.reducer,
             tracks: tracksSlice.reducer,
             users: usersSlice.reducer
-        }
+        },
+        preloadedState: reHydrateStore(),
+        middleware: (mw) => mw().concat(localStorageMiddleware)
     })
 }
 

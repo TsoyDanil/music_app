@@ -29,6 +29,13 @@ export const addAlbum = createAppAsyncThunk(
     }
 )
 
+export const getAlbums = createAppAsyncThunk(
+    `${namespace}/getAlbums`, 
+    async () => {
+        return await albumsApi.getAlbums()
+    }
+)
+
 export const albumsSlice = createSlice({
     name: namespace,
     initialState: {
@@ -53,6 +60,17 @@ export const albumsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+        .addCase(getAlbums.pending, (state) => {
+            state.albumsLoading = true
+        })
+        .addCase(getAlbums.rejected, (state) => {
+            state.albumsLoading = false
+        })
+        .addCase(getAlbums.fulfilled, (state, action) => {
+            state.albumsLoading = false
+            if (action.payload.result) state.albumsList = action.payload.result
+        })
+
         .addCase(getAlbumsByArtistId.pending, (state) => {
             state.albumsLoading = true
         })
