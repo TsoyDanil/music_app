@@ -119,6 +119,10 @@ const AlbumForm: React.FunctionComponent = (): React.ReactElement => {
     }
 
     useEffect(() => {
+        dispatch(getArtists())
+    }, [])
+
+    useEffect(() => {
         if (!artistsList.length) dispatch(getArtists())
     }, [dispatch])
 

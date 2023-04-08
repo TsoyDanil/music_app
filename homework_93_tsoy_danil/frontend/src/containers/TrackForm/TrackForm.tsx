@@ -85,6 +85,10 @@ const TrackForm: React.FunctionComponent = (): React.ReactElement => {
     };
 
     useEffect(() => {
+        dispatch(getAlbums())
+    }, [])
+
+    useEffect(() => {
         if (!albumsList.length) dispatch(getAlbums())
     }, [dispatch])
 
@@ -98,9 +102,6 @@ const TrackForm: React.FunctionComponent = (): React.ReactElement => {
 
     return (
         <div>
-            {
-                tracksLoading ? <Preloader/> : null
-            }
             <Modal
                 open={open}
                 onClose={handleClose}

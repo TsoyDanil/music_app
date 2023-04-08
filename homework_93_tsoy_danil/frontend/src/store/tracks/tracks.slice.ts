@@ -21,6 +21,13 @@ export const addTrack = createAppAsyncThunk(
     }
 )
 
+export const getUnpublishedTracks = createAppAsyncThunk(
+    `${namespace}/getUnpublishedTracks`,
+    async () => {
+        return await tracksApi.getUnpublishedTracks()
+    }
+)
+
 export const tracksSlice = createSlice({
     name: namespace,
     initialState: {
@@ -52,6 +59,17 @@ export const tracksSlice = createSlice({
         .addCase(addTrack.fulfilled, (state, action) => {
             state.tracksLoading = false
             if (action.payload.result) state.unpublishedTracks = state.unpublishedTracks.concat(action.payload.result)
+        })
+
+        .addCase(getUnpublishedTracks.pending, (state) => {
+            state.tracksLoading = true
+        })
+        .addCase(getUnpublishedTracks.rejected, (state) => {
+            state.tracksLoading = false
+        })
+        .addCase(getUnpublishedTracks.fulfilled, (state, action) => {
+            state.tracksLoading = false
+            if (action.payload.result) state.unpublishedTracks = action.payload.result
         })
     }
 })

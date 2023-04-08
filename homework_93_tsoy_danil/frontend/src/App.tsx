@@ -10,9 +10,10 @@ import { checkToken } from "./store/users/users.slice"
 import PrivateRoute from "./utils/PrivateRoute"
 import AlbumForm from "./containers/AlbumForm/AlbumForm"
 import ArtistForm from "./containers/ArtistForm/ArtistForm"
-import TrackForm from "./containers/TrackForm/TrackForm"
 import PermissionRoute from "./utils/PermissionRoute"
 import { ERoles } from "./enum/ERoles"
+import AdminArea from "./containers/AdminArea/AdminArea"
+import TrackForm from "./containers/TrackForm/TrackForm"
 
 const App: React.FunctionComponent = (): React.ReactElement => {
   
@@ -36,7 +37,7 @@ const App: React.FunctionComponent = (): React.ReactElement => {
               <Route path="/add-album" element={<AlbumForm/>}/>
               <Route path="/add-track" element={<TrackForm/>}/>
               <Route element={<PermissionRoute roles={[ERoles.ADMIN]}/>}>
-                <Route path="/admin-area" element={<h1>Admin</h1>}/>
+                <Route path="/admin-area" element={<AdminArea/>}/>
               </Route>
             </Route>
         </Route>

@@ -20,6 +20,13 @@ export const addArtist = createAppAsyncThunk(
     }
 )
 
+export const getUnpublishedArtists = createAppAsyncThunk(
+    `${namespace}/getUnpublishedArtists`,
+    async () => {
+        return await artistsApi.getUnpublishedArtists()
+    }
+)
+
 export const artistsSlice = createSlice({
     name: namespace,
     initialState:{
@@ -64,6 +71,17 @@ export const artistsSlice = createSlice({
         .addCase(addArtist.fulfilled, (state, action) => {
             state.artistsLoading = false
             if (action.payload.result) state.unpublishedArtists = state.unpublishedArtists.concat(action.payload.result)
+        })
+
+        .addCase(getUnpublishedArtists.pending, (state) => {
+            state.artistsLoading = false
+        })
+        .addCase(getUnpublishedArtists.rejected, (state) => {
+            state.artistsLoading = false
+        })
+        .addCase(getUnpublishedArtists.fulfilled, (state, action) => {
+            state.artistsLoading = false
+            if (action.payload.result) state.unpublishedArtists = action.payload.result
         })
     }
 })
