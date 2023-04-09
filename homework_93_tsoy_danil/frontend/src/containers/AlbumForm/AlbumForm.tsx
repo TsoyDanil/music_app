@@ -162,7 +162,6 @@ const AlbumForm: React.FunctionComponent = (): React.ReactElement => {
                 onSubmit={submitHandler}
                 style={{margin: '10px', padding: '20px', background: '#e0e0e0', borderRadius: '5px'}}
             >
-                <p style={{color: 'black'}}>Choose artist:</p>
                 <TextField 
                     id="outlined-basic" 
                     label="Album title" 
@@ -185,7 +184,9 @@ const AlbumForm: React.FunctionComponent = (): React.ReactElement => {
                 >
                 {
                     artistsList.length && artistsList.map((artist: IArtist, i: number) => {
-                        return <MenuItem key={i} value={artist.name}>{artist.name}</MenuItem>
+                        if (artist.isPublished){
+                            return <MenuItem key={i} value={artist.name}>{artist.name}</MenuItem>
+                        }
                     })
                 }
                 </Select>

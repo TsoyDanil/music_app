@@ -86,10 +86,10 @@ export const albumsSlice = createSlice({
             state.albumsLoading = true
         })
         .addCase(getUnpublishedAlbums.rejected, (state) => {
-            state.albumsLoading = true
+            state.albumsLoading = false
         })
         .addCase(getUnpublishedAlbums.fulfilled, (state, action) => {
-            state.albumsLoading = true
+            state.albumsLoading = false
             if (action.payload.result) state.unpublishedAlbums = action.payload.result
         })
 
@@ -103,8 +103,6 @@ export const albumsSlice = createSlice({
             state.albumsLoading = false
             if (action.payload.result) state.unpublishedAlbums = state.unpublishedAlbums.concat(action.payload.result)
         })
-
-        
     }
 })
 

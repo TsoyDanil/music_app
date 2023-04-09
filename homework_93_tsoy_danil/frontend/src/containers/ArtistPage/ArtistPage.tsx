@@ -59,11 +59,13 @@ const ArtistPage: React.FunctionComponent = (): React.ReactElement => {
                     <div className={styles.AlbumsList}>
                         {
                             albumsList.length ? albumsList.map((album: IAlbum) => {
-                                return <AlbumBlock
+                                if (album.isPublished){
+                                    return <AlbumBlock
                                             key={album._id}
                                             album={album}
                                             searchTracks={() => {searchAlbumTracksHandler(album._id)}}
                                         />
+                                }
                                 }) : <h1 style={{textAlign: 'center'}}>Empty</h1>
                         }
                     </div>

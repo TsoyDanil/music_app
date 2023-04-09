@@ -43,14 +43,14 @@ const TrackForm: React.FunctionComponent = (): React.ReactElement => {
 
     const [buttonDisabled, setButtonDisabled] = useState<boolean>(true) 
 
+    const [selectedAlbum, setSelectedAlbum] = useState<string>('')
+
     const [trackDto, setTrackDto] = useState<ITrackDto>({
         title: '',
         album: '',
         length: 0,
-        link: undefined
+        link: ''
     })
-
-    const [albumName, setAlbumName] = useState<string>('')
 
     const inputHandler = (e: ChangeEvent<HTMLInputElement>): void => {
         setTrackDto(prevState => {
@@ -69,6 +69,13 @@ const TrackForm: React.FunctionComponent = (): React.ReactElement => {
     const submitHandler = (e: FormEvent): void => {
         e.preventDefault()
         dispatch(addTrack(trackDto))
+        setTrackDto({
+            title: '',
+            album: '',
+            length: 0,
+            link: ''
+        })
+        setSelectedAlbum('')
     }
 
     const handleAlbumChange = (event: SelectChangeEvent) => {
@@ -77,6 +84,7 @@ const TrackForm: React.FunctionComponent = (): React.ReactElement => {
             setTrackDto(prevState => {
                 return {...prevState, album: albumId}
             })
+            setSelectedAlbum(event.target.value)
         }
     }
 
@@ -102,6 +110,9 @@ const TrackForm: React.FunctionComponent = (): React.ReactElement => {
 
     return (
         <div>
+            {
+                tracksLoading ? <Preloader/> : null
+            }
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -136,14 +147,16 @@ const TrackForm: React.FunctionComponent = (): React.ReactElement => {
                     color='primary'
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={albumName}
+                    value={selectedAlbum}
                     label="Choose album"
                     onChange={handleAlbumChange}
                     style={{marginBottom: '20px'}}
                 >
                 {
                     albumsList.length && albumsList.map((album: IAlbum, i: number) => {
-                        return <MenuItem key={i} value={album.title}>{album.title}</MenuItem>
+                        if (album.isPublished){
+                            return <MenuItem key={i} value={album.title}>{album.title}</MenuItem>
+                        }
                     })
                 }
                 </Select>

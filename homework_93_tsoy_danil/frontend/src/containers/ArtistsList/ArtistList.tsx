@@ -32,11 +32,13 @@ const ArtistList: React.FunctionComponent = (): React.ReactElement => {
             {
                 artistsList.length ? 
                 artistsList.map((artist: IArtist) => {
-                    return <ArtistBlock
+                    if (artist.isPublished){
+                        return <ArtistBlock
                                 key={artist._id}
                                 artist={artist}
                                 searchAlbums={() => {searchAlbumsHandler(artist._id)}}
-                            /> 
+                            />
+                    }
                 }) : 
                 <h1>No artists yet</h1>
             }

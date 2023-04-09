@@ -100,12 +100,14 @@ const TracksList: React.FunctionComponent = (): React.ReactElement => {
                     {
                         tracksList.length ? 
                         tracksList.map((track: ITrack) => {
-                            return <TrackBlock
+                            if (track.isPublished){
+                                return <TrackBlock
                                         key={track._id}
                                         track={track}
                                         addTrackHistory={()=>{addTrackHistoryHandler(track._id)}}
                                         playTrackOnYoutube={() => {playTrackOnYoutube(track?.link)}}
                                     />
+                            }
                         }) : <h1>No Tracks Yet</h1>
                     }
                 </div> : <h1>No data Found</h1>

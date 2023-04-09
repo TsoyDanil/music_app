@@ -7,6 +7,13 @@ import ITrackDto from "../../interfaces/ITrackDto"
 
 const namespace: string = 'tracks'
 
+export const getTracks = createAppAsyncThunk(
+    `${namespace}/getTracks`,
+    async () => {
+        return await tracksApi.getTracks()
+    }
+)
+
 export const getTracksByAlbumId = createAppAsyncThunk(
     `${namespace}/getTracksByAlbumId`,
     async (id: string) => {
@@ -70,6 +77,17 @@ export const tracksSlice = createSlice({
         .addCase(getUnpublishedTracks.fulfilled, (state, action) => {
             state.tracksLoading = false
             if (action.payload.result) state.unpublishedTracks = action.payload.result
+        })
+
+        .addCase(getTracks.pending, (state) => {
+            state.tracksLoading = true
+        })
+        .addCase(getTracks.rejected, (state) => {
+            state.tracksLoading = false
+        })
+        .addCase(getTracks.fulfilled, (state, action) => {
+            state.tracksLoading = false
+            if (action.payload.result) state.tracksList = action.payload.result
         })
     }
 })

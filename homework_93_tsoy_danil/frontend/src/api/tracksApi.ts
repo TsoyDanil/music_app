@@ -5,6 +5,23 @@ import ITrackDto from "../interfaces/ITrackDto";
 import { instance } from "./instances";
 
 class TracksApi {
+
+    public getTracks = async(): Promise<IResponse<ITrack[] | null>> => {
+        try{
+            const response = await instance.get('/tracks')
+            return response.data
+        } catch(err: unknown){
+            console.log(err);
+            const error = err as Error
+            const response: IResponse<null> = {
+                status: EStatuses.FAILURE,
+                result: null,
+                message: error.message
+            }
+            return response
+        }
+    }
+
     public getTracksByAlbumId = async(id: string): Promise<IResponse<ITrack[] | null>> => {
         try{
             const response = await instance.get(`/tracks?album=${id}`)
