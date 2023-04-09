@@ -36,6 +36,13 @@ export const getAlbums = createAppAsyncThunk(
     }
 )
 
+export const deleteAlbumById = createAppAsyncThunk(
+    `${namespace}/deleteAlbumById`,
+    async (id: string) => {
+        return await albumsApi.deleteAlbumById(id)
+    }
+)
+
 export const albumsSlice = createSlice({
     name: namespace,
     initialState: {
@@ -102,6 +109,21 @@ export const albumsSlice = createSlice({
         .addCase(addAlbum.fulfilled, (state, action) => {
             state.albumsLoading = false
             if (action.payload.result) state.unpublishedAlbums = state.unpublishedAlbums.concat(action.payload.result)
+        })
+
+        .addCase(deleteAlbumById.pending, (state) => {
+            state.albumsLoading = true
+        })
+        .addCase(deleteAlbumById.rejected, (state) => {
+            state.albumsLoading = false
+        })
+        .addCase(deleteAlbumById.fulfilled, (state, action) => {
+            state.albumsLoading = false
+            if (action.payload.result){
+                state.albumsList = state.albumsList.filter((album: IAlbum) => {
+                    return album._id !== action.payload.result?._id
+                })
+            }
         })
     }
 })

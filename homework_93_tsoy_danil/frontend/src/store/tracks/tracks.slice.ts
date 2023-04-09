@@ -3,6 +3,7 @@ import { tracksApi } from "../../api/tracksApi"
 import { createAppAsyncThunk } from "../createAppAsyncThunk"
 import ITracksState from "./ITracksState"
 import ITrackDto from "../../interfaces/ITrackDto"
+import ITrack from "../../interfaces/ITrack"
 
 
 const namespace: string = 'tracks'
@@ -32,6 +33,13 @@ export const getUnpublishedTracks = createAppAsyncThunk(
     `${namespace}/getUnpublishedTracks`,
     async () => {
         return await tracksApi.getUnpublishedTracks()
+    }
+)
+
+export const deleteTrackById = createAppAsyncThunk(
+    `${namespace}/deleteTrackById`,
+    async (id: string) => {
+        return await tracksApi.deleteTrackById(id)
     }
 )
 
@@ -88,6 +96,21 @@ export const tracksSlice = createSlice({
         .addCase(getTracks.fulfilled, (state, action) => {
             state.tracksLoading = false
             if (action.payload.result) state.tracksList = action.payload.result
+        })
+
+        .addCase(deleteTrackById.pending, (state) => {
+            state.tracksLoading = true
+        })
+        .addCase(deleteTrackById.rejected, (state) => {
+            state.tracksLoading = false
+        })
+        .addCase(deleteTrackById.fulfilled, (state, action) => {
+            state.tracksLoading = false
+            if (action.payload.result){
+                state.tracksList = state.tracksList.filter((track: ITrack) => {
+                    return track._id !== action.payload.result?._id
+                })
+            }
         })
     }
 })

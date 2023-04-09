@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import styles from './AdminArea.module.css'
 import { AppDispatch, AppState, useAppDispatch } from '../../store/store'
-import { getAlbums, getUnpublishedAlbums } from '../../store/albums/albums.slice'
-import { getArtists, getUnpublishedArtists } from '../../store/artists/artists.slice'
-import { getTracks, getUnpublishedTracks } from '../../store/tracks/tracks.slice'
+import { deleteAlbumById, getAlbums, getUnpublishedAlbums } from '../../store/albums/albums.slice'
+import { deleteArtistById, getArtists, getUnpublishedArtists } from '../../store/artists/artists.slice'
+import { deleteTrackById, getTracks, getUnpublishedTracks } from '../../store/tracks/tracks.slice'
 import { shallowEqual, useSelector } from 'react-redux'
 import Preloader from '../../components/UI/Preloader/Preloader'
 import MenuItem from '@mui/material/MenuItem';
@@ -38,7 +38,7 @@ const AdminArea: React.FunctionComponent = (): React.ReactElement => {
     }, [])
 
     const deleteTrackHandler = (id: string) => {
-        console.log(id);
+        dispatch(deleteTrackById(id))
     }
 
     const publishTrackHandler = (id: string) => {
@@ -46,7 +46,7 @@ const AdminArea: React.FunctionComponent = (): React.ReactElement => {
     }
 
     const deleteArtistHandler = (id: string) => {
-        console.log(id)
+        dispatch(deleteArtistById(id))
     }
 
     const publishArtistHandler = (id: string) => {
@@ -54,7 +54,7 @@ const AdminArea: React.FunctionComponent = (): React.ReactElement => {
     }
 
     const deleteAlbumHandler = (id: string) => {
-        console.log(id)
+        dispatch(deleteAlbumById(id))
     }
 
     const publishAlbumHandler = (id: string) => {

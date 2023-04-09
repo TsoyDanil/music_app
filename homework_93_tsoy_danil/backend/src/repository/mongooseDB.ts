@@ -294,7 +294,7 @@ export class MongooseDB {
 
     public getUnpublishedTracks = async (): Promise<IResponse<ITrack[] | null>> => {
         try{
-            const data = await Track.find()
+            const data = await Track.find({isPublished: false})
             const response: IResponse<ITrack[]> = {
                 status: EStatuses.SUCCESS,
                 result: data,
@@ -317,12 +317,12 @@ export class MongooseDB {
             const isAlbumExists = await Album.exists({_id: trackDto.album})
             if (!isAlbumExists) throw new Error('Album with this id does not exists')
             if (trackDto.length <= 0) throw new Error('All fields should exist and have valid value')
-            const album = new Track(trackDto)
-            const data = await album.save()
+            const track = new Track(trackDto)
+            const data = await track.save()
             const response: IResponse<ITrack> = {
                 status: EStatuses.SUCCESS,
                 result: data,
-                message: 'Album added'
+                message: 'Track added'
             }
             return response
         } catch(err: unknown){
@@ -343,7 +343,7 @@ export class MongooseDB {
             const response: IResponse<ITrack> = {
                 status: EStatuses.SUCCESS,
                 result: track,
-                message: 'Artist deleted successfully'
+                message: 'Track deleted successfully'
             }
             return response
         } catch(err: unknown){
@@ -367,7 +367,7 @@ export class MongooseDB {
             const response: IResponse<ITrack> = {
                 status: EStatuses.SUCCESS,
                 result: trackToPublish,
-                message: 'Artist published successfully'
+                message: 'Track published successfully'
             }
             return response
         } catch(err: unknown){
