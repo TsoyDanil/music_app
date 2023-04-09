@@ -17,11 +17,11 @@ import AlbumPublishBlock from '../../components/AlbumPublishBlock/AlbumPublishBl
 
 const AdminArea: React.FunctionComponent = (): React.ReactElement => {
 
-    const {albumsLoading, unpublishedAlbums} = useSelector((state: AppState) => state.albums, shallowEqual)
+    const {albumsLoading, albumsList} = useSelector((state: AppState) => state.albums, shallowEqual)
 
-    const {tracksLoading, unpublishedTracks} = useSelector((state: AppState) => state.tracks, shallowEqual)
+    const {tracksLoading, tracksList} = useSelector((state: AppState) => state.tracks, shallowEqual)
 
-    const {artistsLoading, unpublishedArtists} = useSelector((state: AppState) => state.artists, shallowEqual)
+    const {artistsLoading, artistsList} = useSelector((state: AppState) => state.artists, shallowEqual)
 
     const [selectValue, setSelectValue] = useState<string>('')
 
@@ -34,7 +34,7 @@ const AdminArea: React.FunctionComponent = (): React.ReactElement => {
     useEffect(() => {
         dispatch(getUnpublishedAlbums())
         dispatch(getUnpublishedArtists())
-        dispatch(getUnpublishedTracks())
+        dispatch(getTracks())
     }, [])
 
     const deleteTrackHandler = (id: string) => {
@@ -42,7 +42,7 @@ const AdminArea: React.FunctionComponent = (): React.ReactElement => {
     }
 
     const publishTrackHandler = (id: string) => {
-        console.log(dispatch);
+        console.log(id);
     }
 
     const deleteArtistHandler = (id: string) => {
@@ -88,33 +88,39 @@ const AdminArea: React.FunctionComponent = (): React.ReactElement => {
                 </FormControl>
                 <div className={styles.DataArea}>
                     {
-                        selectValue === 'tracks' && unpublishedTracks.length && unpublishedTracks.map((track: ITrack) => {
+                        selectValue === 'tracks' && tracksList.length && tracksList.map((track: ITrack) => {
+                            if (!track.isPublished){
                                 return <TrackPublishBlock
                                         key={track._id}
                                         track={track}
                                         publishTrack={()=>{publishTrackHandler(track._id)}}
                                         deleteTrack={()=>{deleteTrackHandler(track._id)}}
-                                    /> 
+                                    />
+                            }
                         })
                     }
                     {
-                        selectValue === 'artists' && unpublishedArtists.length && unpublishedArtists.map((artist: IArtist) => {
+                        selectValue === 'artists' && artistsList.length && artistsList.map((artist: IArtist) => {
+                            if (!artist.isPublished){
                                 return <ArtistPublishBlock
                                             key={artist._id}
                                             artist={artist}
                                             publishArtist={()=>{publishArtistHandler(artist._id)}}
                                             deleteArtist={()=>{deleteArtistHandler(artist._id)}}
                                         />
+                            }
                         })
                     }
                     {
-                        selectValue === 'albums' && unpublishedAlbums.length && unpublishedAlbums.map((album: IAlbum) => {
+                        selectValue === 'albums' && albumsList.length && albumsList.map((album: IAlbum) => {
+                            if (!album.isPublished){
                                 return <AlbumPublishBlock
                                             key={album._id}
                                             album={album}
                                             publishAlbum={()=>{publishAlbumHandler(album._id)}}
                                             deleteAlbum={()=>{deleteAlbumHandler(album._id)}}
                                         />
+                            }
                         })
                     }
                 </div>
