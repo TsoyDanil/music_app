@@ -43,6 +43,13 @@ export const deleteTrackById = createAppAsyncThunk(
     }
 )
 
+export const publishTrackById = createAppAsyncThunk(
+    `${namespace}/publishTrackById`,
+    async (id: string) => {
+        return await tracksApi.publishTrackById(id)
+    }
+)
+
 export const tracksSlice = createSlice({
     name: namespace,
     initialState: {
@@ -110,6 +117,20 @@ export const tracksSlice = createSlice({
                 state.tracksList = state.tracksList.filter((track: ITrack) => {
                     return track._id !== action.payload.result?._id
                 })
+            }
+        })
+
+        .addCase(publishTrackById.pending, (state) => {
+            state.tracksLoading = true
+        })
+        .addCase(publishTrackById.rejected, (state) => {
+            state.tracksLoading = false
+        })
+        .addCase(publishTrackById.fulfilled, (state, action) => {
+            state.tracksLoading = false
+            if (action.payload.result){
+                const index: number = state.tracksList.findIndex((album: ITrack) => album._id === action.payload.result?._id)
+                state.tracksList[index] = action.payload.result
             }
         })
     }

@@ -115,6 +115,7 @@ const AlbumForm: React.FunctionComponent = (): React.ReactElement => {
             releaseYear: dateValue !== null ? dateValue.toDate(): new Date()
         })
         setFileName('')
+        setArtistName('')
         setOpen(true)
     }
 

@@ -76,7 +76,6 @@ const TracksList: React.FunctionComponent = (): React.ReactElement => {
                         height="315" 
                         src={trackLink}
                         title="YouTube video player" 
-                        frameBorder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                         allowFullScreen={true}
                         className={styles.Video_frame_player}

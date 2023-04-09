@@ -28,10 +28,10 @@ const TrackHistory: React.FunctionComponent = (): React.ReactElement => {
             <main className={styles.TrackHistory_main}>
                 {
                     trackHistoryList.length ? 
-                    trackHistoryList.map((track: ITrackHistory) => {
+                    trackHistoryList.map((trackHistory: ITrackHistory) => {
                         return <TrackHistoryBlock
-                                    key={track._id}
-                                    trackHistory={track}
+                                    key={trackHistory._id}
+                                    trackHistory={trackHistory}
                                 />
                     }) : <h1>History is empty</h1>
                 }

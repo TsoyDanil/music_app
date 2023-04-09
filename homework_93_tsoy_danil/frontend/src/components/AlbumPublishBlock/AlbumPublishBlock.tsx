@@ -31,7 +31,9 @@ const AlbumPublishBlock: React.FunctionComponent<IAlbumPublishBlockProps> = (pro
         </Typography>
     </CardContent>
     <CardActions>
-        <Button size="small" color="success" onClick={props.publishAlbum}>Publish</Button>
+        {
+            !props.album.isPublished ? <Button size="small" color="success" onClick={props.publishAlbum}>Publish</Button> : null
+        }
         <Button size="small" color="error" onClick={props.deleteAlbum}>Delete</Button>
     </CardActions>
     </Card>

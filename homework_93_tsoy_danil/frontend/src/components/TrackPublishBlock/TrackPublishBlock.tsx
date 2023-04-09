@@ -21,7 +21,9 @@ const TrackPublishBlock: React.FunctionComponent<ITrackPublishBlockProps> = (pro
                 </Typography>
             </CardContent>
             <CardActions >
-                <Button size="small" color="success" onClick={props.publishTrack}>Publish</Button>
+                {
+                    !props.track.isPublished ? <Button size="small" color="success" onClick={props.publishTrack}>Publish</Button> : null
+                }
                 <Button size="small" color="error" onClick={props.deleteTrack}>Delete</Button>
             </CardActions>
             </Card>

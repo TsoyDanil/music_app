@@ -3,8 +3,6 @@ import { albumsApi } from "../../api/albumsApi"
 import IAlbum from "../../interfaces/IAlbum"
 import { createAppAsyncThunk } from "../createAppAsyncThunk"
 import IAlbumsState from "./IAlbumsState"
-import IAlbumDto from "../../interfaces/IAlbumDto"
-
 
 const namespace: string = 'albums'
 
@@ -40,6 +38,13 @@ export const deleteAlbumById = createAppAsyncThunk(
     `${namespace}/deleteAlbumById`,
     async (id: string) => {
         return await albumsApi.deleteAlbumById(id)
+    }
+)
+
+export const publishAlbumById = createAppAsyncThunk(
+    `${namespace}/publishAlbum`,
+    async (id: string) => {
+        return await albumsApi.publishAlbumById(id)
     }
 )
 
@@ -123,6 +128,20 @@ export const albumsSlice = createSlice({
                 state.albumsList = state.albumsList.filter((album: IAlbum) => {
                     return album._id !== action.payload.result?._id
                 })
+            }
+        })
+
+        .addCase(publishAlbumById.pending, (state) => {
+            state.albumsLoading = true
+        })
+        .addCase(publishAlbumById.rejected, (state) => {
+            state.albumsLoading = false
+        })
+        .addCase(publishAlbumById.fulfilled, (state, action) => {
+            state.albumsLoading = false
+            if (action.payload.result){
+                const index: number = state.albumsList.findIndex((album: IAlbum) => album._id === action.payload.result?._id)
+                state.albumsList[index] = action.payload.result
             }
         })
     }

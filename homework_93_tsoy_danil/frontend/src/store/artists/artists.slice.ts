@@ -34,6 +34,13 @@ export const deleteArtistById = createAppAsyncThunk(
     }
 )
 
+export const publishArtistById = createAppAsyncThunk(
+    `${namespace}/publishArtistById`,
+    async (id: string) => {
+        return await artistsApi.publishArtistById(id)
+    }
+)
+
 
 
 export const artistsSlice = createSlice({
@@ -105,6 +112,20 @@ export const artistsSlice = createSlice({
                 state.artistsList = state.artistsList.filter((artist: IArtist) => {
                     return artist._id !== action.payload.result?._id
                 })
+            }
+        })
+
+        .addCase(publishArtistById.pending, (state) => {
+            state.artistsLoading = true
+        })
+        .addCase(publishArtistById.rejected, (state) => {
+            state.artistsLoading = false
+        })
+        .addCase(publishArtistById.fulfilled, (state, action) => {
+            state.artistsLoading = false
+            if (action.payload.result){
+                const index: number = state.artistsList.findIndex((album: IArtist) => album._id === action.payload.result?._id)
+                state.artistsList[index] = action.payload.result
             }
         })
     }

@@ -31,7 +31,9 @@ const ArtistPublishBlock: React.FunctionComponent<IArtistPublishBlockProps> = (p
             </Typography>
         </CardContent>
         <CardActions>
-            <Button size="small" color="success" onClick={props.publishArtist}>Publish</Button>
+            {
+                !props.artist.isPublished ? <Button size="small" color="success" onClick={props.publishArtist}>Publish</Button> : null
+            }
             <Button size="small" color="error" onClick={props.deleteArtist}>Delete</Button>
         </CardActions>
         </Card>
