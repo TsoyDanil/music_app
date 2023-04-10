@@ -38,6 +38,15 @@ export default db.once('open', async () => {
         }
     )
 
+    await Artist.create(
+        {
+            name: 'Imagine dragons',
+            photo: 'red_hot_chilli_pappers.jpg',
+            information: 'Red hot chilli papers group',
+            isPublished: false
+        }
+    )
+
     const [albumOne, albumTwo] = await Album.create(
         {
             title: 'The last stand',
@@ -54,6 +63,14 @@ export default db.once('open', async () => {
             isPublished: true
         }
     )
+
+    await Album.create({
+        title: 'Californification',
+        artist: albumOne._id,
+        releaseYear: '01.02.2017',
+        coverImage: 'red_hot_chilli_pappers.jpg',
+        isPublished: false
+    })
     
     const [trackOne, trackTwo] = await Track.create(
         {
