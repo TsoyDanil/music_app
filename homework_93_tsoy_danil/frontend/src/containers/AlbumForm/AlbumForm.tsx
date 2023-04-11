@@ -194,7 +194,7 @@ const AlbumForm: React.FunctionComponent = (): React.ReactElement => {
                 </FormControl>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
-                    label="Controlled picker"
+                    label="Album release year"
                     value={dateValue}
                     onChange={(newValue) => setDateValue(newValue)}
                 />

@@ -66,7 +66,7 @@ export default db.once('open', async () => {
 
     await Album.create({
         title: 'Californification',
-        artist: albumOne._id,
+        artist: artistOne._id,
         releaseYear: '01.02.2017',
         coverImage: 'red_hot_chilli_pappers.jpg',
         isPublished: false
