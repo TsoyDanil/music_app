@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import image_not_found from '../../assets/image_not_found.png'
 import IAlbumPublishBlockProps from './IAlbumPublishBlockProps';
+import { baseUrl } from '../../api/baseUrl';
 
 
 const AlbumPublishBlock: React.FunctionComponent<IAlbumPublishBlockProps> = (props): React.ReactElement => {
@@ -16,7 +17,7 @@ const AlbumPublishBlock: React.FunctionComponent<IAlbumPublishBlockProps> = (pro
     <CardMedia
         component="img"
         sx={{ height: 140 }}
-        image={import.meta.env.VITE_BASE_URL + 'uploads/albums/' + props.album.coverImage}
+        image={baseUrl + 'uploads/albums/' + props.album.coverImage}
         title={props.album.title + 'image'}
         onError={(e) => {
             e.currentTarget.src = image_not_found

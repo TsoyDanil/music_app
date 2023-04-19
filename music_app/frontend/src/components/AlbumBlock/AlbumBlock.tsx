@@ -2,6 +2,7 @@ import React from "react";
 import IAlbumBlockProps from "./IAlbumBlockProps";
 import styles from './AlbumBlock.module.css'
 import image_not_found from '../../assets/image_not_found.png'
+import { baseUrl } from "../../api/baseUrl";
 
 
 const AlbumBlock: React.FunctionComponent<IAlbumBlockProps> = (props): React.ReactElement => {
@@ -11,7 +12,7 @@ const AlbumBlock: React.FunctionComponent<IAlbumBlockProps> = (props): React.Rea
         className={styles.AlbumBlock}>
             <img 
                 className={styles.Album_cover}
-                src={import.meta.env.VITE_BASE_URL + 'uploads/albums/' + props.album.coverImage}
+                src={baseUrl + 'uploads/albums/' + props.album.coverImage}
                 alt={props.album.title + 'image'}
                 onError = {(e) => {
                     e.currentTarget.src = image_not_found

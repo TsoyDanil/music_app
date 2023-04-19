@@ -2,6 +2,7 @@ import React from "react";
 import IArtistBlockProps from "./IArtistBlockProps";
 import styles from './ArtistBlock.module.css'
 import image_not_found from '../../assets/image_not_found.png'
+import { baseUrl } from "../../api/baseUrl";
 
 const ArtistBlock: React.FunctionComponent<IArtistBlockProps> = (props): React.ReactElement => {
     return (
@@ -9,7 +10,7 @@ const ArtistBlock: React.FunctionComponent<IArtistBlockProps> = (props): React.R
             <div className={styles.Image_frame}>
                 <img 
                     className={styles.Artist_image}
-                    src={import.meta.env.VITE_BASE_URL + 'uploads/artists/' + props.artist.photo}
+                    src={baseUrl + 'uploads/artists/' + props.artist.photo}
                     alt={props.artist.name + 'image'}
                     onError = {(e) => {
                         e.currentTarget.src = image_not_found

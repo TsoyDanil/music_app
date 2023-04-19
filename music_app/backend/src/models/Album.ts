@@ -6,7 +6,6 @@ const Schema = mongoose.Schema
 const AlbumSchema = new Schema<IAlbum>({
     title:{
         type: String,
-        require: true,
         trim: true,
         minlength: 1,
         required: [true, 'Album title should exist']
@@ -34,7 +33,3 @@ const AlbumSchema = new Schema<IAlbum>({
 
 export const Album = mongoose.model<IAlbum>('Album', AlbumSchema)
 
-// Никита - подготовить api, подготовить slices (три слайса: posts, comments). 
-// Подготовить форму добавления поста + подготовить компонент для каждого поста. Подготовить главную страницу (с ваилидациями)
-// Данил - логин, странциа регистрации и авторизациии, Layout, навигация (slice user, instance api + user api)
-// 

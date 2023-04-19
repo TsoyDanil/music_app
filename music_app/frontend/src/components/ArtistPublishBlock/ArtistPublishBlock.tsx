@@ -6,6 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import image_not_found from '../../assets/image_not_found.png'
+import { baseUrl } from "../../api/baseUrl";
 
 const ArtistPublishBlock: React.FunctionComponent<IArtistPublishBlockProps> = (props): React.ReactElement => {
 
@@ -16,7 +17,7 @@ const ArtistPublishBlock: React.FunctionComponent<IArtistPublishBlockProps> = (p
         <CardMedia
             component="img"
             sx={{ height: 140 }}
-            image={import.meta.env.VITE_BASE_URL + 'uploads/artists/' + props.artist.photo}
+            image={baseUrl + 'uploads/artists/' + props.artist.photo}
             title={props.artist.name + 'image'}
             onError={(e) => {
                 e.currentTarget.src = image_not_found
